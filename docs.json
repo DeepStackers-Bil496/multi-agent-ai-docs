@@ -11,36 +11,42 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Getting Started",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "Introduction",
+            "group": "Getting Started",
             "pages": [
               "index",
-              "quickstart",
-              "architecture"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Agents",
-        "groups": [
-          {
-            "group": "Overview",
-            "pages": [
-              "agents/overview"
+              "quickstart"
             ]
           },
           {
-            "group": "Available Agents",
+            "group": "Architecture",
             "pages": [
+              "architecture"
+            ]
+          },
+          {
+            "group": "Agents",
+            "pages": [
+              "agents/overview",
               "agents/main-agent",
               "agents/github-agent",
               "agents/google-workspace-agent",
               "agents/web-agent",
               "agents/huggingface-agent",
               "agents/frontend-agent"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Code",
+        "groups": [
+          {
+            "group": "Implementation",
+            "pages": [
+              "implementation"
             ]
           }
         ]
