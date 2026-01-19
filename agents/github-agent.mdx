@@ -1,0 +1,103 @@
+---
+title: GitHub Agent
+description: Interact with GitHub repositories, issues, and pull requests
+---
+
+# GitHub Agent
+
+The GitHubAgent provides comprehensive GitHub integration through the GitHub MCP Server, enabling repository management, issue tracking, and code operations.
+
+## Overview
+
+| Property | Value |
+|----------|-------|
+| **ID** | `github-agent` |
+| **Default Model** | `gemini-2.5-flash` |
+| **Provider** | Google |
+| **MCP Server** | github-mcp-server |
+
+## Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Repositories" icon="folder">
+    Browse, search, and manage repositories
+  </Card>
+  <Card title="Issues" icon="circle-exclamation">
+    Create, read, update, and search issues
+  </Card>
+  <Card title="Pull Requests" icon="code-pull-request">
+    List, review, and manage pull requests
+  </Card>
+  <Card title="Commits" icon="clock-rotate-left">
+    View commit history and details
+  </Card>
+  <Card title="Code Search" icon="magnifying-glass">
+    Search code across repositories
+  </Card>
+  <Card title="Files" icon="file-code">
+    Read and update file contents
+  </Card>
+</CardGroup>
+
+## Example Prompts
+
+```text
+"Show my recent commits on the Evangeline project."
+"List open issues in my repo"
+"What's in the README at the Zeki-ChatBot repository?"
+"Search for TypeScript repositories"
+"Create a new issue titled 'Bug Fix' in multi-agent-ai-framework"
+"Get the diff for PR #42"
+```
+
+## Available Tools
+
+The GitHub MCP Server provides these tools:
+
+| Tool | Description |
+|------|-------------|
+| `list_commits` | Get commit history for a repository |
+| `get_commit` | Get details of a specific commit |
+| `search_repositories` | Search for repositories |
+| `search_code` | Search code across GitHub |
+| `issue_read` | Read issue details and comments |
+| `issue_write` | Create or update issues |
+| `list_pull_requests` | List PRs in a repository |
+| `pull_request_read` | Get PR details, diff, or files |
+| `get_file_contents` | Read file content from a repo |
+| `create_or_update_file` | Create or modify files |
+| `create_branch` | Create a new branch |
+| `fork_repository` | Fork a repository |
+
+## Authentication
+
+The GitHub Agent requires a GitHub personal access token with appropriate permissions:
+
+```bash
+GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx
+```
+
+Required scopes depend on operations:
+- `repo` - Full repository access
+- `read:org` - Read organization data
+- `read:user` - Read user profile
+
+## Configuration
+
+```typescript
+export const GitHubAgentConfig = {
+  user_metadata: {
+    id: "github-agent",
+    name: "GitHub Agent",
+    short_description: "GitHub Agent powered by Llama via Groq",
+    long_description: "Interact with GitHub repositories, issues, PRs, and more."
+  },
+  implementation_metadata: {
+    type: "api",
+    provider: "google",
+    modelID: "gemini-2.5-flash",
+    systemInstruction: githubAgentSystemPrompt,
+    apiKey: process.env.GEMINI_API_KEY
+  }
+}
+```

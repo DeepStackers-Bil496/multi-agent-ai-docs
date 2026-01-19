@@ -1,0 +1,91 @@
+---
+title: Web Agent
+description: Extract content and metadata from web pages
+---
+
+# Web Agent
+
+The WebAgent provides web content extraction capabilities using the Firecrawl MCP Server, enabling web scraping, content parsing, and metadata extraction.
+
+## Overview
+
+| Property | Value |
+|----------|-------|
+| **ID** | `web-agent` |
+| **Default Model** | `gemini-2.5-flash` |
+| **Provider** | Google |
+| **MCP Server** | firecrawl-mcp |
+
+## Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Content Extraction" icon="file-lines">
+    Extract readable text from web pages
+  </Card>
+  <Card title="Link Discovery" icon="link">
+    Find and list all links on a page
+  </Card>
+  <Card title="Metadata Scraping" icon="tags">
+    Extract meta tags, titles, and descriptions
+  </Card>
+  <Card title="Page Analysis" icon="magnifying-glass-chart">
+    Analyze page structure and content
+  </Card>
+</CardGroup>
+
+## Example Prompts
+
+```text
+"What is the title of this webpage?"
+"Extract all links from this page"
+"Search this link https://www.etu.edu.tr/tr"
+"Scrape the metadata from this website"
+"Summarize the content on oruccakir.live"
+"Get the main article text from this news page"
+```
+
+## Available Tools
+
+| Tool | Description |
+|------|-------------|
+| `scrape_url` | Fetch and extract content from a URL |
+| `extract_links` | Get all links from a webpage |
+| `get_metadata` | Extract meta tags and page info |
+
+## Use Cases
+
+### Research & Information Gathering
+Extract content from articles, documentation, or research papers for analysis.
+
+### Competitive Analysis
+Scrape competitor websites for product information, pricing, or content strategy.
+
+### Content Aggregation
+Collect and summarize information from multiple sources.
+
+### Link Validation
+Check external links and gather information about referenced resources.
+
+## Configuration
+
+```typescript
+export const WebAgentConfig = {
+  user_metadata: {
+    id: "web-agent",
+    name: "Web Agent",
+    short_description: "Web content extraction and scraping",
+    long_description: "Fetch and parse web pages to extract text, links, and metadata."
+  },
+  implementation_metadata: {
+    type: "api",
+    provider: "google",
+    modelID: "gemini-2.5-flash",
+    systemInstruction: webAgentSystemPrompt,
+    apiKey: process.env.GEMINI_API_KEY
+  }
+}
+```
+
+<Note>
+The Web Agent respects robots.txt and rate limiting. Some websites may block automated access.
+</Note>

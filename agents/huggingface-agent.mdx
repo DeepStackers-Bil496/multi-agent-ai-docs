@@ -1,0 +1,93 @@
+---
+title: HuggingFace Agent
+description: Discover ML models, datasets, and research papers
+---
+
+# HuggingFace Agent
+
+The HuggingFaceAgent enables discovery and exploration of machine learning resources on the Hugging Face Hub, including models, datasets, papers, and Spaces.
+
+## Overview
+
+| Property | Value |
+|----------|-------|
+| **ID** | `huggingface-agent` |
+| **Default Model** | `gemini-2.5-flash` |
+| **Provider** | Google |
+| **MCP Server** | huggingface-mcp-server |
+
+## Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Model Discovery" icon="brain">
+    Search and explore ML models
+  </Card>
+  <Card title="Dataset Search" icon="database">
+    Find training and evaluation datasets
+  </Card>
+  <Card title="Research Papers" icon="file-lines">
+    Discover academic papers and publications
+  </Card>
+  <Card title="Spaces" icon="window">
+    Explore ML demo applications
+  </Card>
+</CardGroup>
+
+## Example Prompts
+
+```text
+"Find the top 10 trending text-generation models"
+"Search for papers about vision transformers"
+"What datasets are available for sentiment analysis?"
+"Discover available ML tasks on Hugging Face Spaces"
+"Show me the most popular image classification models"
+"Find datasets for named entity recognition"
+```
+
+## Available Tools
+
+| Tool | Description |
+|------|-------------|
+| `search_models` | Search for ML models by task, name, or tag |
+| `search_datasets` | Find datasets by category or keyword |
+| `search_papers` | Discover research papers |
+| `list_spaces` | Browse Hugging Face Spaces |
+| `get_model_info` | Get detailed model information |
+| `list_trending` | Show trending models and datasets |
+
+## Supported Tasks
+
+The agent can search models by task type:
+
+- **Text Generation**: LLMs, chatbots, code generation
+- **Image Classification**: ViT, ResNet, CNN models
+- **Object Detection**: YOLO, DETR, Faster R-CNN
+- **Text-to-Image**: Stable Diffusion, DALL-E
+- **Speech Recognition**: Whisper, Wav2Vec
+- **Translation**: mBART, MarianMT
+- **Sentiment Analysis**: BERT, RoBERTa classifiers
+- **Question Answering**: Extractive and generative QA
+
+## Configuration
+
+```typescript
+export const HuggingFaceAgentConfig = {
+  user_metadata: {
+    id: "huggingface-agent",
+    name: "HuggingFace Agent",
+    short_description: "HuggingFace Agent powered by Gemini",
+    long_description: "Search and discover ML models, datasets, papers, and Spaces..."
+  },
+  implementation_metadata: {
+    type: "api",
+    provider: "google",
+    modelID: "gemini-2.5-flash",
+    systemInstruction: huggingFaceAgentSystemPrompt,
+    apiKey: process.env.GEMINI_API_KEY
+  }
+}
+```
+
+<Tip>
+Use specific task names and filters to get more relevant results, e.g., "top 5 text-generation models with Apache 2.0 license"
+</Tip>

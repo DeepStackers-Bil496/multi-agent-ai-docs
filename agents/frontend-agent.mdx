@@ -1,0 +1,110 @@
+---
+title: Frontend Agent
+description: Customize UI themes and styling via natural language
+---
+
+# Frontend Agent
+
+The FrontendAgent enables UI customization through natural language commands, allowing users to modify themes, colors, fonts, and visual effects without writing code.
+
+## Overview
+
+| Property | Value |
+|----------|-------|
+| **ID** | `frontend-agent` |
+| **Default Model** | `gemini-2.5-flash` |
+| **Provider** | Google |
+| **Integration** | Internal styling tools |
+
+## Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Themes" icon="palette">
+    Apply pre-built theme presets
+  </Card>
+  <Card title="Colors" icon="eye-dropper">
+    Customize color schemes
+  </Card>
+  <Card title="Effects" icon="wand-magic-sparkles">
+    Enable glassmorphism, gradients, shadows
+  </Card>
+  <Card title="Typography" icon="font">
+    Change fonts and text styling
+  </Card>
+  <Card title="Animations" icon="bolt">
+    Add micro-animations and transitions
+  </Card>
+  <Card title="Dark Mode" icon="moon">
+    Toggle dark/light mode
+  </Card>
+</CardGroup>
+
+## Example Prompts
+
+```text
+"Apply the cyberpunk theme"
+"Enable glassmorphism with strong blur"
+"Set a purple to blue gradient background"
+"Make everything more rounded with dramatic shadows"
+"Switch to dark mode with neon pink accent"
+"Use a playful font and bouncy animations"
+"Apply ocean theme preset"
+"Reset all styles to default"
+```
+
+## Available Presets
+
+| Preset | Description |
+|--------|-------------|
+| `cyberpunk` | Neon colors, dark background, tech aesthetic |
+| `ocean` | Blue tones, wave-inspired gradients |
+| `forest` | Green palette, earthy, natural feel |
+| `sunset` | Warm oranges and purples |
+| `minimal` | Clean, white space, subtle accents |
+| `retro` | 80s/90s inspired colors and shapes |
+
+## Styling Options
+
+### Colors
+- Primary, secondary, and accent colors
+- Background and surface colors
+- Text and border colors
+
+### Effects
+- Glassmorphism with adjustable blur
+- Drop shadows with custom intensity
+- Gradient backgrounds and borders
+
+### Typography
+- Font families from Google Fonts
+- Font sizes and weights
+- Line heights and letter spacing
+
+### Layout
+- Border radius (rounded corners)
+- Spacing and padding
+- Container widths
+
+## Configuration
+
+```typescript
+export const FrontendAgentConfig = {
+  user_metadata: {
+    id: "frontend-agent",
+    name: "Frontend Agent",
+    short_description: "UI customization via natural language",
+    long_description: "Customize the application's appearance including themes, colors, fonts, effects..."
+  },
+  implementation_metadata: {
+    type: "api",
+    provider: "google",
+    modelID: "gemini-2.5-flash",
+    systemInstruction: frontendAgentSystemPrompt,
+    apiKey: process.env.GEMINI_API_KEY
+  }
+}
+```
+
+<Tip>
+Combine multiple styling requests in one prompt: "Apply dark mode with purple accent, enable glassmorphism, and use rounded corners"
+</Tip>

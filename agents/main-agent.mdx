@@ -1,0 +1,84 @@
+---
+title: Main Agent
+description: The orchestrator agent that coordinates all sub-agents
+---
+
+# Main Agent
+
+The MainAgent serves as the central orchestrator in the Multi-Agent AI Framework. It analyzes user requests and delegates tasks to specialized sub-agents.
+
+## Overview
+
+| Property | Value |
+|----------|-------|
+| **ID** | `main-agent` |
+| **Default Model** | `gemini-2.5-flash` |
+| **Provider** | Google |
+| **Type** | Orchestrator |
+
+## Capabilities
+
+- **Task Analysis**: Understands user intent and determines the best agent to handle requests
+- **Delegation**: Routes tasks to specialized agents (GitHub, Google Workspace, Web, etc.)
+- **General Chat**: Handles conversations that don't require specialized tools
+- **Context Management**: Maintains conversation context across agent switches
+
+## Example Prompts
+
+<AccordionGroup>
+  <Accordion title="General Query">
+    "What is Model Context Protocol?"
+    
+    MainAgent handles this directly without delegation.
+  </Accordion>
+  <Accordion title="GitHub Task">
+    "Get the last two commits from Evangeline repo owner is oruccakir"
+    
+    Delegates to GitHubAgent for repository access.
+  </Accordion>
+  <Accordion title="Web Task">
+    "Search this link oruccakir.live"
+    
+    Delegates to WebAgent for content extraction.
+  </Accordion>
+</AccordionGroup>
+
+## Delegation Logic
+
+The MainAgent uses intent classification to route requests:
+
+```mermaid
+flowchart TD
+    Request[User Request] --> Analyze[Analyze Intent]
+    Analyze --> IsGitHub{GitHub related?}
+    IsGitHub -->|Yes| GitHub[GitHub Agent]
+    IsGitHub -->|No| IsGoogle{Google Workspace?}
+    IsGoogle -->|Yes| Google[Google Workspace Agent]
+    IsGoogle -->|No| IsWeb{Web content?}
+    IsWeb -->|Yes| Web[Web Agent]
+    IsWeb -->|No| IsHF{ML/HuggingFace?}
+    IsHF -->|Yes| HF[HuggingFace Agent]
+    IsHF -->|No| IsUI{UI styling?}
+    IsUI -->|Yes| Frontend[Frontend Agent]
+    IsUI -->|No| Main[Handle Directly]
+```
+
+## Configuration
+
+```typescript
+export const MainAgentConfig = {
+  user_metadata: {
+    id: "main-agent",
+    name: "Main Agent",
+    short_description: "Main Agent that is used as orchestrator.",
+    long_description: "Main Agent that handles the conversation."
+  },
+  implementation_metadata: {
+    type: "api",
+    provider: "google",
+    modelID: "gemini-2.5-flash",
+    systemInstruction: mainAgentSystemPrompt,
+    apiKey: process.env.GEMINI_API_KEY
+  }
+}
+```

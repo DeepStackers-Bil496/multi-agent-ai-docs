@@ -1,0 +1,108 @@
+---
+title: Google Workspace Agent
+description: Manage Gmail, Calendar, Drive, Docs, Sheets, and Slides
+---
+
+# Google Workspace Agent
+
+The GoogleWorkspaceAgent provides unified access to Google Workspace services, enabling email management, calendar scheduling, file operations, and document editing.
+
+## Overview
+
+| Property | Value |
+|----------|-------|
+| **ID** | `google-workspace-agent` |
+| **Default Model** | `gemini-2.5-flash` |
+| **Provider** | Google |
+| **Integration** | Google APIs |
+
+## Capabilities
+
+<CardGroup cols={3}>
+  <Card title="Gmail" icon="envelope">
+    Send, read, and manage emails
+  </Card>
+  <Card title="Calendar" icon="calendar">
+    Schedule events and find free time
+  </Card>
+  <Card title="Drive" icon="hard-drive">
+    Organize and share files
+  </Card>
+  <Card title="Docs" icon="file-lines">
+    Create and edit documents
+  </Card>
+  <Card title="Sheets" icon="table">
+    Work with spreadsheet data
+  </Card>
+  <Card title="Slides" icon="presentation-screen">
+    Create presentations
+  </Card>
+</CardGroup>
+
+## Example Prompts
+
+```text
+"Send an email to alice@example.com about the project update"
+"Create a meeting tomorrow at 2pm with bob@example.com"
+"List my recent files in Google Drive"
+"Create a new Google Doc titled 'Meeting Notes'"
+"Add a row to my Budget spreadsheet with Q1 expenses"
+"Find a 30-minute free slot tomorrow afternoon"
+```
+
+## Service-Specific Features
+
+### Gmail
+- Send and reply to emails
+- Search inbox by criteria
+- Manage labels and folders
+- Read email content and attachments
+
+### Calendar
+- Create and update events
+- Find available time slots
+- Send meeting invitations
+- Check schedule conflicts
+
+### Drive
+- List and search files
+- Create folders
+- Share files with permissions
+- Upload and download content
+
+### Docs, Sheets & Slides
+- Create new documents
+- Edit existing content
+- Format and style
+- Collaborative editing support
+
+## Authentication
+
+The Google Workspace Agent requires OAuth 2.0 credentials:
+
+```bash
+GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-client-secret
+```
+
+Users must authenticate through the OAuth flow to grant access to their Google Workspace data.
+
+## Configuration
+
+```typescript
+export const GoogleWorkspaceAgentConfig = {
+  user_metadata: {
+    id: "google-workspace-agent",
+    name: "Google Workspace Agent",
+    short_description: "Manage Gmail, Calendar, Drive, Docs, Sheets, and Slides",
+    long_description: "A unified agent for all Google Workspace services..."
+  },
+  implementation_metadata: {
+    type: "api",
+    provider: "google",
+    modelID: "gemini-2.5-flash",
+    systemInstruction: googleWorkspaceAgentSystemPrompt,
+    apiKey: process.env.GEMINI_API_KEY
+  }
+}
+```
