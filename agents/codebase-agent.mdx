@@ -1,0 +1,70 @@
+---
+title: Codebase Agent
+description: RAG-powered agent for answering questions about the local codebase
+---
+
+The Codebase Agent uses vector search and semantic retrieval to answer questions about your repository. It is designed for architecture questions, locating implementations, and explaining how components work.
+
+## Overview
+
+| Property | Value |
+|----------|-------|
+| **ID** | `codebase-agent` |
+| **Default Model** | `gemini-2.5-flash` |
+| **Provider** | Google |
+
+## Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Semantic Search" icon="magnifying-glass">
+    Find relevant code snippets by meaning, not just keywords
+  </Card>
+  <Card title="Architecture Q&A" icon="diagram-project">
+    Explain flows and module relationships
+  </Card>
+  <Card title="Implementation Lookup" icon="code">
+    Locate functions, classes, and patterns quickly
+  </Card>
+  <Card title="RAG Context" icon="layer-group">
+    Ground answers in retrieved code chunks
+  </Card>
+</CardGroup>
+
+## Example Prompts
+
+```text
+"How does message streaming work in this project?"
+"Where is the database schema defined?"
+"Show me the MainAgent routing logic."
+"Find the auth middleware implementation."
+```
+
+## Available Tools
+
+| Tool | Description |
+|------|-------------|
+| `search_codebase` | Semantic search over indexed code chunks |
+
+## Setup Notes
+
+- Run `pnpm index:codebase` to build the embeddings index.
+- Requires `GEMINI_API_KEY` and `POSTGRES_URL` for embedding generation and storage.
+
+## Configuration
+
+```typescript
+export const CodebaseAgentConfig = {
+  user_metadata: {
+    id: "codebase-agent",
+    name: "Codebase Agent",
+    short_description: "Ask questions about this project's code"
+  },
+  implementation_metadata: {
+    type: "api",
+    provider: "google",
+    modelID: "gemini-2.5-flash",
+    systemInstruction: codebaseAgentSystemPrompt,
+    apiKey: process.env.GEMINI_API_KEY
+  }
+}
+```

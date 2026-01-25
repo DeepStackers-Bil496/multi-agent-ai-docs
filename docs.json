@@ -31,11 +31,14 @@
             "pages": [
               "agents/overview",
               "agents/main-agent",
+              "agents/coding-agent",
+              "agents/codebase-agent",
               "agents/github-agent",
               "agents/google-workspace-agent",
-              "agents/web-agent",
+              "agents/search-agent",
               "agents/huggingface-agent",
-              "agents/frontend-agent"
+              "agents/frontend-agent",
+              "agents/tts-agent"
             ]
           }
         ]

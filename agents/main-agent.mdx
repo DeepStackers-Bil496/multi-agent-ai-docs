@@ -17,7 +17,7 @@ The MainAgent serves as the central orchestrator in the Multi-Agent AI Framework
 ## Capabilities
 
 - **Task Analysis**: Understands user intent and determines the best agent to handle requests
-- **Delegation**: Routes tasks to specialized agents (GitHub, Google Workspace, Web, etc.)
+- **Delegation**: Routes tasks to specialized agents (GitHub, Google Workspace, Search, Coding, etc.)
 - **General Chat**: Handles conversations that don't require specialized tools
 - **Context Management**: Maintains conversation context across agent switches
 
@@ -37,7 +37,17 @@ The MainAgent serves as the central orchestrator in the Multi-Agent AI Framework
   <Accordion title="Web Task">
     "Search this link oruccakir.live"
     
-    Delegates to WebAgent for content extraction.
+    Delegates to SearchAgent for content extraction.
+  </Accordion>
+  <Accordion title="Coding Task">
+    "Write a Python function to normalize an array of scores."
+
+    Delegates to Coding Agent for implementation.
+  </Accordion>
+  <Accordion title="Codebase Task">
+    "Where is the database schema defined in this repo?"
+
+    Delegates to Codebase Agent for codebase retrieval.
   </Accordion>
 </AccordionGroup>
 
@@ -52,11 +62,17 @@ flowchart TD
     IsGitHub -->|Yes| GitHub[GitHub Agent]
     IsGitHub -->|No| IsGoogle{Google Workspace?}
     IsGoogle -->|Yes| Google[Google Workspace Agent]
-    IsGoogle -->|No| IsWeb{Web content?}
-    IsWeb -->|Yes| Web[Web Agent]
-    IsWeb -->|No| IsHF{ML/HuggingFace?}
+    IsGoogle -->|No| IsSearch{Search or scraping?}
+    IsSearch -->|Yes| Search[Search Agent]
+    IsSearch -->|No| IsHF{ML/HuggingFace?}
     IsHF -->|Yes| HF[HuggingFace Agent]
-    IsHF -->|No| IsUI{UI styling?}
+    IsHF -->|No| IsCodebase{Codebase question?}
+    IsCodebase -->|Yes| Codebase[Codebase Agent]
+    IsCodebase -->|No| IsCoding{Coding task?}
+    IsCoding -->|Yes| Coding[Coding Agent]
+    IsCoding -->|No| IsTTS{Spoken output?}
+    IsTTS -->|Yes| TTS[TTS Agent]
+    IsTTS -->|No| IsUI{UI styling?}
     IsUI -->|Yes| Frontend[Frontend Agent]
     IsUI -->|No| Main[Handle Directly]
 ```
