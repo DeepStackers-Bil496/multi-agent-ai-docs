@@ -1,0 +1,75 @@
+---
+title: Search Agent
+description: Web search, research, and content extraction
+---
+
+The Search Agent performs web search and content extraction. It supports semantic search via Exa, academic search via arXiv and Semantic Scholar, and direct scraping of page text, links, and metadata.
+
+## Overview
+
+| Property | Value |
+|----------|-------|
+| **ID** | `search-agent` |
+| **Default Model** | `gemini-2.5-flash` |
+| **Provider** | Google |
+
+## Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Semantic Search" icon="sparkles">
+    Exa-powered search for high quality results
+  </Card>
+  <Card title="Academic Research" icon="graduation-cap">
+    arXiv and Semantic Scholar queries
+  </Card>
+  <Card title="Content Scraping" icon="file-lines">
+    Extract readable text from URLs
+  </Card>
+  <Card title="Metadata and Links" icon="tags">
+    Get titles, meta tags, and link lists
+  </Card>
+</CardGroup>
+
+## Example Prompts
+
+```text
+"Search for recent news about retrieval augmented generation"
+"Find papers on transformer optimization"
+"Extract the main text from this URL: https://example.com"
+"List all links on this page"
+```
+
+## Available Tools
+
+| Tool | Description |
+|------|-------------|
+| `exa_web_search` | Semantic web search via Exa |
+| `exa_deep_search` | Deep research with summaries via Exa |
+| `academic_search` | arXiv and Semantic Scholar search |
+| `fetch_url` | Fetch raw HTML |
+| `scrape_text` | Extract readable text (Jina + fallback) |
+| `extract_links` | Extract all links from a page |
+| `extract_metadata` | Extract metadata and Open Graph tags |
+
+## Configuration
+
+```typescript
+export const SearchAgentConfig = {
+  user_metadata: {
+    id: "search-agent",
+    name: "Search Agent",
+    short_description: "Web search and content extraction"
+  },
+  implementation_metadata: {
+    type: "api",
+    provider: "google",
+    modelID: "gemini-2.5-flash",
+    systemInstruction: searchAgentSystemPrompt,
+    apiKey: process.env.GEMINI_API_KEY
+  }
+}
+```
+
+<Note>
+`EXA_API_KEY` is required for Exa search tools. Academic search and scraping do not require Exa.
+</Note>

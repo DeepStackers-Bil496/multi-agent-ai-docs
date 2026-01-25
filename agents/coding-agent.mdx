@@ -1,0 +1,69 @@
+---
+title: Coding Agent
+description: Python-first coding assistant for high-quality implementations
+---
+
+The Coding Agent is specialized for software engineering tasks and defaults to Python unless another language is explicitly requested. It emphasizes correctness, readability, and clean structure.
+
+## Overview
+
+| Property | Value |
+|----------|-------|
+| **ID** | `coding-agent` |
+| **Default Model** | `glm-4.7-flash` |
+| **Provider** | Ollama |
+
+## Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Implementation" icon="code">
+    Write clean, correct code with minimal fluff
+  </Card>
+  <Card title="Refactoring" icon="wand-magic-sparkles">
+    Improve structure, readability, and performance
+  </Card>
+  <Card title="Testing" icon="vial">
+    Generate minimal tests or usage examples
+  </Card>
+  <Card title="Codebase Awareness" icon="diagram-project">
+    Uses codebase search to ground answers in your repo
+  </Card>
+</CardGroup>
+
+## Example Prompts
+
+```text
+"Write a Python function to normalize a list of scores to 0-1."
+"Refactor this code for readability and performance."
+"Generate unit tests for this function."
+"Explain the time complexity and provide a faster approach."
+```
+
+## Available Tools
+
+| Tool | Description |
+|------|-------------|
+| `search_codebase` | Semantic search over the local codebase (RAG) |
+
+## Configuration
+
+```typescript
+export const CodingAgentConfig = {
+  user_metadata: {
+    id: "coding-agent",
+    name: "Coding Agent",
+    short_description: "Python-first coding assistant",
+    long_description: "Specialized agent for software engineering tasks."
+  },
+  implementation_metadata: {
+    type: "api",
+    provider: "ollama",
+    modelID: "glm-4.7-flash",
+    systemInstruction: codingAgentSystemPrompt
+  }
+}
+```
+
+<Note>
+This agent defaults to Python unless you explicitly request another language.
+</Note>

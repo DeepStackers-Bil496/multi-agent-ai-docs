@@ -1,0 +1,62 @@
+---
+title: TTS Agent
+description: Short Turkish responses optimized for text-to-speech
+---
+
+The TTS Agent generates short Turkish responses designed to be spoken aloud. It does not call external tools; it focuses on producing concise, spoken-friendly text.
+
+## Overview
+
+| Property | Value |
+|----------|-------|
+| **ID** | `tts-agent` |
+| **Default Model** | `gemini-2.5-flash` |
+| **Provider** | Google |
+
+## Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Short Spoken Responses" icon="volume-high">
+    Produces TTS-friendly Turkish text
+  </Card>
+  <Card title="Concise Output" icon="align-left">
+    Keeps responses brief and clear
+  </Card>
+</CardGroup>
+
+## Example Prompts
+
+```text
+"Kisaca kendini tanit."
+"Istanbul hakkinda kisa bir bilgi ver."
+"Bana kisa bir motivasyon cumlesi soyle."
+```
+
+## Available Tools
+
+| Tool | Description |
+|------|-------------|
+| (none) | This agent does not use tools |
+
+## Configuration
+
+```typescript
+export const TtsAgentConfig = {
+  user_metadata: {
+    id: "tts-agent",
+    name: "TTS Agent",
+    short_description: "Text-to-speech responses in Turkish"
+  },
+  implementation_metadata: {
+    type: "api",
+    provider: "google",
+    modelID: "gemini-2.5-flash",
+    systemInstruction: ttsAgentSystemPrompt,
+    apiKey: process.env.GEMINI_API_KEY
+  }
+}
+```
+
+<Note>
+Audio playback in the UI uses the TTS service at `/api/speech/tts`, which can be backed by the local FastAPI server.
+</Note>
